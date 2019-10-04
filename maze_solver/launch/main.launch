@@ -1,0 +1,5 @@
+<launch>
+    <node name="state_controller" pkg="maze_solver" type="StateController.py" output="screen"/>
+    <node name="lidar_process" pkg="maze_solver" type="LidarProcess.py" output="screen"/>
+    <node name="main_node" pkg="maze_solver" type="MainNode.py" output="screen"/>
+</launch>

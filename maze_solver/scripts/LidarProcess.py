@@ -2,23 +2,30 @@
 
 import rospy
 from sensor_msgs.msg import LaserScan
-from maze_solver.msg import MinScan
+from maze_solver.msg import ProcessedScan
 import sys
 import numpy as np
 
-#when i receive a scan, publish the bearing and data of the minimum scan
+#when i receive a scan, publish the closest overall and wedge scans
 def callback(scan):
     ranges = map(lambda x: np.inf if x == 0 else x, scan.ranges) #replace null vals with inf
-    bearing = np.argmin(ranges)
-    min_range_ahead = ranges[bearing]
-    msg = MinScan()
-    msg.bearing = bearing
-    msg.distance = ranges[bearing]
-    msg.ninety = ranges[90]
-    cmd_vel_pub.publish(msg)
+    msg = ProcessedScan()
+    #get wedges via python slicing
+    msg.back_left =     min(ranges[90:126])
+    msg.left =          min(ranges[54:90])
+    msg.front_left =    min(ranges[18:54])
+    msg.front =         min(ranges[0:18] + ranges[342:])
+    msg.front_right =   min(ranges[306:342])
+    msg.right =         min(ranges[270:306])
+    msg.back_right =    min(ranges[234:270])
+    #get closest bearing and distance
+    msg.min_bearing =   np.argmin(ranges)
+    msg.min_distance =  ranges[msg.min_bearing]
+    msg.right_distance =        ranges[270]
+    pub.publish(msg)
 
-#subscribe to scans, publish to warnings
+#subscribe to scan, publish to process_scan
 rospy.init_node('lidar_process')
-cmd_vel_pub = rospy.Publisher('/min_scan', MinScan, queue_size=1)
+pub = rospy.Publisher('/processed_scan', ProcessedScan, queue_size=1)
 sub = rospy.Subscriber('/scan', LaserScan, callback)
 rospy.spin()

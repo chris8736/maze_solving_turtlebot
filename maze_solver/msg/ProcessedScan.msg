@@ -1,0 +1,10 @@
+float32 back_left
+float32 left
+float32 front_left
+float32 front
+float32 front_right
+float32 right
+float32 back_right
+int32 min_bearing
+float32 min_distance
+float32 right_distance
