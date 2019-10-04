@@ -34,10 +34,6 @@ def callback(msg):
             main_twist.linear.x = .5
     elif state == "follow":
         stop_robot()
-        if last_scan.right_distance > .4:
-            main_twist.angular.x = -.2
-        if last_scan.right_distance < .3:
-            main_twist.angular.x = .2
         main_twist.linear.x = .3
         #pid attempt---
         #main_twist.angular.z = last_control
