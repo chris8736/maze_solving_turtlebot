@@ -21,5 +21,5 @@ should allow it to make it out of the maze.
 Run the nodes via the main.launch file after running roscore on your machine + gazebo or a real
 Turtlebot: roslaunch maze_solver main.launch
 
-Real Life simulation.txt: Provides link to youtube video that shows turtlebot making
-it through maze with our code.
+Real Life simulation.txt: Provides links to youtube videos that shows the TurtleBot making
+it through the maze, as well as to the Gazebo simulation demonstration.
