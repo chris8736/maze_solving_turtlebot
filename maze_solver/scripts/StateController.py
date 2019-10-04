@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 """
@@ -18,11 +19,41 @@ def callback(msg):
         state = "follow"
     elif msg.front < max_dist:
         state = "right"
-    else:
+    elif:
         state = "find"
     #msg.front > d and msg.front_left > d and msg.front_right > d:
         #state = "find"
     pub.publish(state)
+
+def callback(msg): 
+    state = ""
+    # nothing 
+    if msg.front > max_dist and msg.front_left > max_dist and msg.front_right < max_dist
+        state = "find"
+    # front 
+    elif msg.front < max_dist and msg.front_left > max_dist and msg.front_right > max_dist
+        state = "lturn"
+    # front right  
+    elif msg.front > max_dist and msg.front_left > max_dist and msg.front_right < max_dist
+        state = "follow"
+    # front left 
+    elif msg.front > max_dist and msg.front_left < max_dist and msg.front_right > max_dist 
+        state = "find"
+    # front and front right 
+    elif msg.front < max_dist and msg.front_left > max_dist and msg.front_right < max_dist
+        state = "lturn" 
+    # front and front left 
+    elif msg.front < max_dist and msg.front_left < max_dist and msg.front_right > max_dist 
+        state = "lturn"
+    # front and front left and front right 
+    elif msg.front < max_dist and msg.front_left < max_dist and msg.front_right < max_dist
+        state = "lturn" 
+    # front left and front right 
+    elif msg.front > max_dist and msg.front_left < max_dist and msg.front_right < max_dist
+        state = "find"
+    else 
+        state "something went wrong"
+
 
 state = "find"
 max_dist = .3
