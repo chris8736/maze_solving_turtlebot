@@ -34,6 +34,10 @@ def callback(msg):
             main_twist.linear.x = .5
     elif state == "follow":
         stop_robot()
+        if last_scan.right_distance > .4:
+            main_twist.angular.x = -.2
+        if last_scan.right_distance < .3:
+            main_twist.angular.x = .2
         main_twist.linear.x = .3
         #pid attempt---
         #main_twist.angular.z = last_control
@@ -55,10 +59,10 @@ main_twist = Twist()
 rospy.init_node('main_node')
 process_sub = rospy.Subscriber('/processed_scan', ProcessedScan, scan_callback)
 cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+state_sub = rospy.Subscriber('/fsm_state', String, callback)
 rate = rospy.Rate(10)
 
 #pid attempt---
-#state_sub = rospy.Subscriber('/fsm_state', String, callback)
 #pid_sub = rospy.Subscriber('/control_effort', Float64, pid_callback)
 
 #continuously publish global twist
