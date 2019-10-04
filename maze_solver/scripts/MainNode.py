@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-#This node subscribes to /fsm_state and sends 
-#continuous Twist messages to the robot via /cmd_vel 
-#according to the received state.
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -10,10 +7,12 @@ from std_msgs.msg import Float64
 from maze_solver.msg import ProcessedScan
 import sys
 
+#reset the values of the global twist
 def stop_robot():
     main_twist.linear.x = 0
     main_twist.angular.z = 0
 
+#update the global value of the last scan
 def scan_callback(msg):
     global last_scan
     last_scan = msg
