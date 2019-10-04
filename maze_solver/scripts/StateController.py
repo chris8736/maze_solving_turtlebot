@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#This node, given a processed scan through /processed_scan, 
+#publishes the state corresponding to the pattern matched to /fsm_state. 
+#This allows the robot to make a sequenced number of events that should allow it to make it out of the maze.
 
 import rospy
 from maze_solver.msg import ProcessedScan
@@ -50,14 +53,12 @@ def callback(msg):
     setpoint_pub.publish(max_dist/2)
 
 state = "find"
+
+#maximum distancr from the wall to trigger the state controls 
 max_dist = .4
 
 rospy.init_node('state_controller')
 sub = rospy.Subscriber('/processed_scan', ProcessedScan, callback)
 fsm_state_pub = rospy.Publisher('/fsm_state', String, queue_size=1)
-
-#pid attempt---
-#state_pub = rospy.Publisher('/state', Float64, queue_size=1)
-#setpoint_pub = rospy.Publisher('/setpoint', Float64, queue_size=1)
 
 rospy.spin()
