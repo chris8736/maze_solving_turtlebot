@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+#This node recieves /scan messages from the Lidar on the turtlebot, 
+#and publishes the minimum overall and individual wedge scans
+#(corresponding to the robot's front, front left and right,
+#side left and right, and back left and right).
+#It computes the wedge scans via python slicing.
 
 import rospy
 from sensor_msgs.msg import LaserScan
