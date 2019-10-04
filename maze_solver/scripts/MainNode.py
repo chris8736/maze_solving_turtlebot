@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#This node subscribes to /fsm_state and sends 
+#continuous Twist messages to the robot via /cmd_vel 
+#according to the received state.
 
 import rospy
 from geometry_msgs.msg import Twist
